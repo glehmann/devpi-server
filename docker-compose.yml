@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       args:
-        ARG_DEVPI_VERSION: ${DOCKER_DEVPI_VERSION}
+        DEVPI_VERSION: 2.2.0
     image: muccg/devpi
     volumes:
       - ./data:/data

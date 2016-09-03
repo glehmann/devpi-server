@@ -1,7 +1,8 @@
 docker-devpi
 ============
 
-This repository contains a Dockerfile for [devpi pypi server](http://doc.devpi.net/latest/).
+A very light weight, [Alpine Linux] and [Python 2] based [devpi] server
+[Docker] image.
 
 You can use this container to speed up the `pip install` parts of your docker
 builds. This is done by adding an optional cache of your requirement python
@@ -12,7 +13,7 @@ breaking builds.
 
 ## Installation
 
-`docker pull muccg/devpi`
+`docker pull glehmann/devpi-server`
 
 ## Quickstart
 
@@ -21,10 +22,10 @@ Start using
 ```bash
 docker run -d --name devpi \
     --publish 3141:3141 \
-    --volume /srv/docker/devpi:/data \
+    --volume devpi:/data \
     --env=DEVPI_PASSWORD=changemetoyourlongsecret \
     --restart always \
-    muccg/devpi
+    glehmann/devpi-server
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml)
@@ -89,3 +90,13 @@ Devpi creates a user named root by default, its password should be set with
 
 For additional security the argument `--restrict-modify root` has been added so
 only the root may create users and indexes.
+
+# Web UI (lack of)
+
+In order to be as lightweight as possible, this image comes without the devpi
+web UI.
+
+[Alpine Linux]: https://alpinelinux.org
+[Python 2]: https://www.python.org
+[devpi]: http://doc.devpi.net/latest/
+[Docker]: https://www.docker.com
