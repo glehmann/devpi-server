@@ -1,4 +1,4 @@
-docker-devpi
+devpi-server
 ============
 
 A very light weight, [Alpine Linux] and [Python 2] based [devpi] server
