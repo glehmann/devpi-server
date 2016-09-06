@@ -8,6 +8,9 @@ if [[ ! -f $DEVPI_SERVERDIR/.serverversion ]]; then
     devpi login root --password=''
     devpi user -m root password="${DEVPI_PASSWORD}"
     devpi index -y -c public pypi_whitelist='*'
+    if [[ -x /custom_init.sh ]]; then
+        /custom_init.sh
+    fi
     devpi-server --stop
 fi
 
