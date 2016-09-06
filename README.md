@@ -96,6 +96,19 @@ only the root may create users and indexes.
 In order to be as lightweight as possible, this image comes without the devpi
 web UI.
 
+# Alternatives
+
+Some alternatives with their size:
+
+    > docker images | grep devpi
+    glehmann/devpi-server       latest              b29a71fd1fc3        16 hours ago        68.84 MB
+    muccg/devpi                 latest              d559121eea05        5 weeks ago         105.1 MB
+    scrapinghub/devpi           latest              10601b6e8f4e        7 months ago        713.1 MB
+    sigma/devpi                 latest              f46a4e9c6333        23 months ago       274.8 MB
+
+Note that they may have features that are not included in this image, or share
+layers with some of your other images.
+
 [Alpine Linux]: https://alpinelinux.org
 [Python 2]: https://www.python.org
 [devpi]: http://doc.devpi.net/latest/
