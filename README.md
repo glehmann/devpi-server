@@ -82,6 +82,45 @@ fi
 For devpi to preserve its state across container shutdown and startup you
 should mount a volume at `/data`. The quickstart command already includes this.
 
+# Customizing server initialization
+
+The `devpi-server` initialization, like creating custom users or index, is
+better done when the clients can't connect to the server. This way, the clients
+can wait for the server to be ready with a simple loop:
+
+```bash
+for i in {1..30}; do
+    if devpi use http://devpi:3141; then
+        break
+    fi
+    sleep 1
+done
+```
+
+The initialization is run before the server is publicly available, and can be
+customized by adding a `custom_init` executable at the root of the container.
+It can be any executable, but the most sensible choices are probably `sh` and
+`python` scripts, as these interpreters are already installed in the image.
+
+`custom_init` can either be passed as a volume:
+
+```bash
+docker run -v my_init.sh:/custom_init glehmann/devpi-server
+```
+
+or inside a new built image:
+
+```
+FROM glehmann/devpi-server
+ADD my_init.sh /custom_init
+```
+
+Note that creating a new image is a better option for production, as you don't
+have to keep the init script on your disk.
+
+`custom_init` doesn't have to be idempotent, because it is run only once, at
+the first container start.
+
 # Security
 
 Devpi creates a user named root by default, its password should be set with

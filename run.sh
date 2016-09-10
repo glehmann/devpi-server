@@ -8,7 +8,10 @@ if [[ ! -f $DEVPI_SERVERDIR/.serverversion ]]; then
     devpi login root --password=''
     devpi user -m root password="${DEVPI_PASSWORD}"
     devpi index -y -c public pypi_whitelist='*'
-    if [[ -x /custom_init.sh ]]; then
+    if [[ -x /custom_init ]]; then
+        /custom_init
+    elif [[ -x /custom_init.sh ]]; then
+        echo "/custom_init.sh is deprecated. Please use /custom_init instead" >&2
         /custom_init.sh
     fi
     devpi-server --stop
